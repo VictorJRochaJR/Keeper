@@ -18,6 +18,24 @@ namespace Keeper.Controllers
             _ks = ks;
         }
 
+
+        [Authorize]
+        [HttpDelete("{id}")]
+
+        public async Task<ActionResult<string>> Remove(int id)
+        {
+            try
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                _ks.Delete(id, userInfo.Id);
+                return Ok("Succesfully Removed");
+            }
+            catch (System.Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpGet]
         public ActionResult<List<Keep>> GetAll()
         {
@@ -57,9 +75,9 @@ namespace Keeper.Controllers
             {
                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
                 keep.CreatorId = userInfo.Id;
-                Keep newKeep = _ks.Create(keep);
-                newKeep.CreatorId = userInfo.Id;
-                return Ok(newKeep);
+                var k = _ks.Create(keep);
+                keep.Creator = userInfo;
+                 return Ok(k);
 
             }
             catch (System.Exception e)
