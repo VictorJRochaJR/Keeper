@@ -23,3 +23,26 @@ CREATE TABLE IF NOT EXISTS keeps(
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 )  default charset utf8 comment '';
 
+
+CREATE TABLE IF NOT EXISTS vaults(
+  id int NOT NULL primary key AUTO_INCREMENT comment 'Primary Key',
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP comment 'Created At',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP comment 'Updated At',
+  creatorId VARCHAR(255) NOT NULL comment 'FK: Account Id',
+  name VARCHAR(255) NOT NULL comment 'Vault Name',
+  description VARCHAR(255) NOT NULL comment 'Vault Description',
+  isPrivate TINYINT NOT NULL comment "Private Vault",
+  FOREIGN KEY(creatorId) references accounts(id) ON DELETE CASCADE
+)   default charset utf8 comment '';
+
+CREATE TABLE IF NOT EXISTS vaultkeeps(
+  id int NOT NULL PRIMARY KEY AUTO_INCREMENT comment 'Primary Key',
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP comment 'Created At',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP comment 'Updated At',
+  creatorId VARCHAR(255) NOT NULL comment 'FK: Account Id',
+  vaultid int comment 'FK: Vault Id',
+  keepid int comment 'FK: Keep Id',
+  FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE,
+  FOREIGN KEY(vaultid) REFERENCES vaults(id) ON DELETE CASCADE,
+  FOREIGN KEY(keepid) REFERENCES keeps(id) ON DELETE CASCADE
+) default charset utf8 comment '';

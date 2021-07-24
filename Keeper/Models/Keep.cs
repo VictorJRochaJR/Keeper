@@ -1,4 +1,5 @@
-namespace Keeper.Models{
+namespace Keeper.Models
+{
     public class Keep
     {
         public int Id {get;set;}

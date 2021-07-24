@@ -69,11 +69,12 @@ namespace Keeper.Repositories
            SET 
            name = @Name,
            description = @Description,
-           img = @Img;
+           img = @Img,
            views = @Views,
            shares = @Shares,
            keeps = @Keeps
-           WHERE id = @Id;";
+           WHERE id = @Id;
+           ";
            
            var rowsAffected = _db.Execute(sql, k);
            if(rowsAffected > 1){
@@ -81,7 +82,7 @@ namespace Keeper.Repositories
            }
            if (rowsAffected < 1)
            {
-               throw new Exception("updated didnt work");
+               throw new Exception("update didnt work");
            }
            return k;
         }
