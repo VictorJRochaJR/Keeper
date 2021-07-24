@@ -54,12 +54,36 @@ namespace Keeper.Repositories
            k.*,
            a.*
            FROM keeps k
-           JOIN Accounts a ON k.creatorId = a.id;";
+           JOIN accounts a ON k.creatorId = a.id;";
            return _db.Query<Keep, Account, Keep>(sql, (k, a) => 
            {
                k.Creator = a;
                return k;
            }, splitOn: "id").ToList();
+        }
+
+        internal Keep Update(Keep k)
+        {
+           string sql = @"
+           UPDATE keeps
+           SET 
+           name = @Name,
+           description = @Description,
+           img = @Img;
+           views = @Views,
+           shares = @Shares,
+           keeps = @Keeps
+           WHERE id = @Id;";
+           
+           var rowsAffected = _db.Execute(sql, k);
+           if(rowsAffected > 1){
+               throw new Exception("Too many updated");
+           }
+           if (rowsAffected < 1)
+           {
+               throw new Exception("updated didnt work");
+           }
+           return k;
         }
     }
 }

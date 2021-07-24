@@ -44,5 +44,27 @@ namespace Keeper.Services
             }
             _kr.Delete(id);
         }
+
+        public Keep Update(Keep k, string id)
+        {
+            Keep keep = _kr.GetOne(k.Id);
+            if (keep == null)
+            {
+                throw new Exception("Invalid Id");
+            }
+            if (keep.CreatorId != id)
+            {
+                throw new Exception("You are not allowed to edit this");
+            }
+            keep.Name = k.Name ?? keep.Name;
+            keep.Description = k.Description ?? keep.Description;
+            keep.Img = k.Img ?? keep.Img;
+            keep.Views = k.Views;
+            keep.Shares = k.Shares;
+
+            return _kr.Update(keep);
+
+
+        }
     }
 }

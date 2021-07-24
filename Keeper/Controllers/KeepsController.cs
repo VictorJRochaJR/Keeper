@@ -20,6 +20,24 @@ namespace Keeper.Controllers
 
 
         [Authorize]
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Keep>> Update(int id, [FromBody] Keep k)
+        {
+            try {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                k.Id = id;
+                Keep newKeep = _ks.Update(k, userInfo.Id);
+                newKeep.Creator = userInfo;
+                return Ok(newKeep);
+            }
+            catch (System.Exception e)
+        {
+        return BadRequest(e.Message);
+    }
+        }
+
+
+        [Authorize]
         [HttpDelete("{id}")]
 
         public async Task<ActionResult<string>> Remove(int id)
