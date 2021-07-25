@@ -94,7 +94,7 @@ namespace Keeper.Repositories
             k.*,
             vk.id AS VaultKeepId
             FROM vaultkeeps vk
-            JOIN keeps k ON k.id = vk.vaultId
+            JOIN keeps k ON k.id = vk.keepId
             WHERE vaultId = @id;";
             return _db.Query<VaultKeepViewModel>(sql, new {id});
         }
