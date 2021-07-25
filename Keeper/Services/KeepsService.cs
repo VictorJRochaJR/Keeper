@@ -66,5 +66,10 @@ namespace Keeper.Services
 
 
         }
+
+        internal  IEnumerable<VaultKeepViewModel> GetKeepsByVaultId(int id)
+        {
+    return _kr.GetKeepsByVaultId(id);     
+}
     }
 }

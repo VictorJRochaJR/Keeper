@@ -15,5 +15,11 @@ namespace Keeper.Services
        {
            return _vkr.Create(newvk);
        }
+
+
+       internal void Delete(int id)
+       {
+        _vkr.Delete(id);
+       }
     }
 }

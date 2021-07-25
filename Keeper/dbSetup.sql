@@ -40,9 +40,11 @@ CREATE TABLE IF NOT EXISTS vaultkeeps(
   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP comment 'Created At',
   updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP comment 'Updated At',
   creatorId VARCHAR(255) NOT NULL comment 'FK: Account Id',
-  vaultid int comment 'FK: Vault Id',
-  keepid int comment 'FK: Keep Id',
+  vaultId int comment 'FK: Vault Id',
+  keepId int comment 'FK: Keep Id',
   FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE,
-  FOREIGN KEY(vaultid) REFERENCES vaults(id) ON DELETE CASCADE,
-  FOREIGN KEY(keepid) REFERENCES keeps(id) ON DELETE CASCADE
+  FOREIGN KEY(vaultId) REFERENCES vaults(id) ON DELETE CASCADE,
+  FOREIGN KEY(keepId) REFERENCES keeps(id) ON DELETE CASCADE
 ) default charset utf8 comment '';
+
+
