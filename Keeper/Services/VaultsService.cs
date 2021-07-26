@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Keeper.Models;
 using Keeper.Repositories;
 
@@ -56,6 +57,12 @@ namespace Keeper.Services
 
 
 
+        }
+
+        public List<Vault> GetVaultsById(string id)
+        {
+            var vaults = _vr.GetVaultByProfileId(id);
+            return vaults;
         }
     }
 }

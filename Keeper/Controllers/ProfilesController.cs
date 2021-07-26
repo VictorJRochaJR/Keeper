@@ -11,10 +11,12 @@ namespace Keeper.Controllers
     {
         private readonly ProfilesService _ps;
         private readonly KeepsService _ks;
-        public ProfilesController(ProfilesService ps, KeepsService ks)
+        private readonly VaultsService _vs;
+        public ProfilesController(ProfilesService ps, KeepsService ks, VaultsService vs)
         {
             _ps = ps;
             _ks = ks;
+            _vs = vs;
         }
         [HttpGet("{id}")]
         public ActionResult<Profile> Get(string id)
@@ -45,6 +47,22 @@ return BadRequest(e.Message);
     return BadRequest(e.Message);
         }
         
+    }
+
+    [HttpGet("{id}/vaults")]
+    public ActionResult<List<Keep>> GetAllVaultsById(string id)
+    {
+        try
+        {
+            List<Vault> vault = _vs.GetVaultsById(id);
+            return Ok(vault);
+
+        }
+        catch (System.Exception e)
+        {
+            
+           return BadRequest(e.Message);
+        }
     }
 
     }
