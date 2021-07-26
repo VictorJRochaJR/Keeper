@@ -63,14 +63,16 @@ namespace Keeper.Services
         public  List<Vault> GetVaultsById(string id, Account userInfo)
         {            
               List<Vault> vaults = _vr.GetVaultByProfileId(id);
+              List<Vault>  newVaults = new List<Vault>();
             foreach (var vault in vaults)
             {
                 if (vault.IsPrivate != true && vault.CreatorId != userInfo.Id )
                 {
-                   return vaults;
-                    
-                }
+                    newVaults.Add(vault);
+
+}
             }
+        return newVaults;
         }
     }
 }
