@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Keeper.Models;
 using Keeper.Repositories;
+using Microsoft.AspNetCore.Http;
 
 namespace Keeper.Services
 {
@@ -59,13 +60,12 @@ namespace Keeper.Services
 
         }
 
-        public List<Vault> GetVaultsById(string id, userInfo)
-        {
-            
+        public async List<Vault> GetVaultsById(string id, userInfo)
+        {            
             var vaults = _vr.GetVaultByProfileId(id);
             foreach (var vault in vaults)
             {
-                if (vault.IsPrivate != true && vault.CreatorId != userId )
+                if (vault.IsPrivate != true && vault.CreatorId != userInfo.Id )
                 {
                     
                 }

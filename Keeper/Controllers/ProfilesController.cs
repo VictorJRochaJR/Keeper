@@ -56,8 +56,9 @@ return BadRequest(e.Message);
     {
         try
         {
-            Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-            List<Vault> vault = _vs.GetVaultsById(id, userInfo);
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+              
+            List<Vault> vault = _vs.GetVaultsById(id, userInfo.Id);
             return Ok(vault);
 
         }
