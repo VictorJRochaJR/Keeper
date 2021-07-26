@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using CodeWorks.Auth0Provider;
 using Keeper.Models;
 using Keeper.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -50,11 +52,12 @@ return BadRequest(e.Message);
     }
 
     [HttpGet("{id}/vaults")]
-    public ActionResult<List<Keep>> GetAllVaultsById(string id)
+    public async Task<ActionResult<List<Keep>>> GetAllVaultsById(string id)
     {
         try
         {
-            List<Vault> vault = _vs.GetVaultsById(id);
+            Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+            List<Vault> vault = _vs.GetVaultsById(id, userInfo);
             return Ok(vault);
 
         }
