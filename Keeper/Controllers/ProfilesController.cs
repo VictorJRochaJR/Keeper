@@ -36,11 +36,13 @@ return BadRequest(e.Message);
         }
 
     [HttpGet("{id}/keeps")]
-    public ActionResult<List<Keep>> GetAllKeepsById(string id)
+    public async Task<ActionResult<List<Keep>>> GetAllKeepsById(string id)
     {
+                Account userInfo =  await HttpContext.GetUserInfoAsync<Account>();
+
         try
         {
-          List<Keep>  keep = _ks.KeepByProfileId(id);
+          List<Keep>  keep = _ks.KeepByProfileId(id, userInfo);
             return Ok(keep);
         }
         catch (System.Exception e)
@@ -58,7 +60,7 @@ return BadRequest(e.Message);
         {
         Account userInfo =  await HttpContext.GetUserInfoAsync<Account>();
 
-            List<Vault> vault = _vs.GetVaultsById(string id, Account userInfo);
+            List<Vault> vault = _vs.GetVaultsById(id, userInfo);
             return Ok(vault);
 
         }

@@ -46,10 +46,24 @@ namespace Keeper.Services
             _kr.Delete(id);
         }
 
-        public List<Keep> KeepByProfileId(string id)
+        public List<Keep> KeepByProfileId(string id, Account userInfo)
         {
-            var keeps = _kr.GetKeepsByProfileId(id);
-            return keeps;
+            List<Keep> keeps = _kr.GetKeepsByProfileId(id);
+            List<Keep> newKeeps = new List<Keep>();
+            foreach(var keep in keeps)
+            {
+                if(keep.CreatorId == userInfo.Id )
+                {
+                    newKeeps.Add(keep);
+                }
+                else
+                {
+                    throw new Exception("bad id");
+                }
+            }
+            return newKeeps;
+            // var keeps = _kr.GetKeepsByProfileId(id);
+            // return keeps;
         }
 
         public Keep Update(Keep k, string id)

@@ -66,13 +66,14 @@ namespace Keeper.Services
               List<Vault>  newVaults = new List<Vault>();
             foreach (var vault in vaults)
             {
-                if(userInfo != null)
-                {
-                if (vault.IsPrivate != true && vault.CreatorId != userInfo.Id)
+               if(!vault.IsPrivate)
+               {
+                   newVaults.Add(vault);
+               }
+                else if (userInfo != null && vault.CreatorId == userInfo.Id)
                 {
                     newVaults.Add(vault);
                 }
-}
             }
         return newVaults;
         }
