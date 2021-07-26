@@ -60,7 +60,7 @@ namespace Keeper.Services
 
         }
 
-        public async List<Vault> GetVaultsById(string id, userInfo)
+        public async List<Vault> GetVaultsById(string id, Account userInfo)
         {            
             var vaults = _vr.GetVaultByProfileId(id);
             foreach (var vault in vaults)
