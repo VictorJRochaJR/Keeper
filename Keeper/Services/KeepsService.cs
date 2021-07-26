@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Keeper.Models;
 using Keeper.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Keeper.Services
 {
@@ -43,6 +44,12 @@ namespace Keeper.Services
                 throw new Exception("You are not allowed to delete this");
             }
             _kr.Delete(id);
+        }
+
+        public List<Keep> KeepByProfileId(string id)
+        {
+            var keeps = _kr.GetKeepsByProfileId(id);
+            return keeps;
         }
 
         public Keep Update(Keep k, string id)

@@ -41,6 +41,40 @@ namespace Keeper.Repositories
                 }, new {id}).FirstOrDefault();
         }
 
+        public List<Keep> GetKeepsByProfileId(string id)
+        {
+             string sql = @"
+         SELECT
+                 k.*,
+                 a.*
+                 From keeps k
+                 JOIN accounts a ON k.CreatorId = a.id
+                 WHERE a.id = @id;";
+                return _db.Query<Keep, Account, Keep>(sql, (k,a) =>
+                {
+                    k.Creator = a;
+                    return k;
+                }, new {id}).ToList();
+        }
+
+        
+//         {
+// string sql = @"
+//  SELECT k.*,
+//  a.* 
+//  FROM keeps k
+//  JOIN accounts A  ON k.creatorId = a.id
+//  WHERE k.id = @id;";
+//  return _db.Query<Keep, Account, Keep>(sql, (k,a) =>
+//  {
+//      k.Creator = a;
+//      return k;
+//  }, splitOn: "id").ToList();
+//  }
+ 
+
+        
+
         internal void Delete(int id)
         {
          string sql = "DELETE FROM keeps WHERE id = @id LIMIT 1 ;";

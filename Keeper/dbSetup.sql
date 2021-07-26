@@ -50,4 +50,8 @@ CREATE TABLE IF NOT EXISTS vaultkeeps(
 
 
 
-
+SELECT k.*,
+ a.* 
+ FROM keeps k
+ JOIN accounts a ON k.creatorId = a.id
+ WHERE k.id = @id;
