@@ -52,19 +52,19 @@ namespace Keeper.Services
             List<Keep> newKeeps = new List<Keep>();
             foreach(var keep in keeps)
             {
-                if(keep.CreatorId == userInfo.Id )
-                {
-                    newKeeps.Add(keep);
-                }
-                else
+                if(keep.CreatorId != userInfo.Id)
                 {
                     throw new Exception("bad id");
                 }
+                else
+                {
+                    newKeeps.Add(keep);
+                }
             }
             return newKeeps;
-            // var keeps = _kr.GetKeepsByProfileId(id);
-            // return keeps;
-        }
+            }
+           
+        
 
         public Keep Update(Keep k, string id)
         {
