@@ -1,13 +1,17 @@
 <template>
-  <div class="grid"
-       :style="{ backgroundImage: `url(${keep.img})`}"
-  >
-    {{ keep.creator.name }}
+  <div class="card" data-toggle="modal" data-target="#keepModal" @click="activeKeep">
+    <img class="card-img-top img-fluid" id="bg-img" :src="keep.img">
+    <!-- :style="{ backgroundImage: `url(${keep.img})`} " -->
+    <div class="card-img-overlay text-center">
+      <h4>{{ keep.description }}</h4>
+    </div>
   </div>
+  <KeepModal />
 </template>
 
 <script>
 import { reactive } from '@vue/reactivity'
+import { keepsService } from '../services/KeepsService'
 export default {
   props: {
     keep: { type: Object, required: true }
@@ -16,39 +20,23 @@ export default {
     const state = reactive({
 
     })
-    return { state }
+    return {
+      state,
+      activeKeep() {
+        keepsService.setKeep(props.keep.id)
+      }
+
+    }
   }
 }
 </script>
 
-<style scoped lang = "sccs">
-body {
-  margin: 0;
-  padding: 1rem;
-}
+<style scoped>
+#bg-img{
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
 
-.masonry-with-columns {
-  columns: 6 200px;
-  column-gap: 1rem;
-  div {
-    width: 150px;
-    background: #EC985A;
-    color: white;
-    margin: 0 1rem 1rem 0;
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    font-family: system-ui;
-    font-weight: 900;
-    font-size: 2rem;
-  }
-  @for $i from 1 through 36 {
-    div:nth-child(#{$i}) {
-      $h: (random(400) + 100) + px;
-      height: $h;
-      line-height: $h;
-    }
-  }
 }
 
 </style>

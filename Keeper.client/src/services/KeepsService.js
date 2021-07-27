@@ -7,6 +7,12 @@ class KeepsService {
     AppState.allKeeps = res.data
     console.log(res.data)
   }
+
+  setKeep(keepId) {
+    const keep = AppState.allKeeps.find(k => k.id === keepId)
+    console.log(keep, 'activekeep')
+    AppState.activeKeep = keep
+  }
 }
 
 export const keepsService = new KeepsService()
