@@ -93,11 +93,13 @@ namespace Keeper.Controllers
 
 
    [HttpGet("{id}/keeps")]
-   public ActionResult<IEnumerable<VaultKeepViewModel>> GetKeepsByVaultId(int id)
+   public async Task<ActionResult<IEnumerable<VaultKeepViewModel>>> GetKeepsByVaultId(int id)
    {
        try
        {
-           return Ok(_ks.GetKeepsByVaultId(id));
+         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+            
+           return Ok(_ks.GetKeepsByVaultId(id, userInfo));
        }
        catch (System.Exception e)
        {

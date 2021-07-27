@@ -48,23 +48,9 @@ namespace Keeper.Services
 
         public List<Keep> KeepByProfileId(string id, Account userInfo)
         {
-            List<Keep> keeps = _kr.GetKeepsByProfileId(id);
-            List<Keep> newKeeps = new List<Keep>();
-            foreach(var keep in keeps)
-            {
-                if(keep.CreatorId != userInfo.Id)
-                {
-                    throw new Exception("bad id");
-                }
-                else
-                {
-                    newKeeps.Add(keep);
-                }
-            }
-            return newKeeps;
-            }
-           
-        
+            var keeps = _kr.GetKeepsByProfileId(id);
+            return keeps;
+        }
 
         public Keep Update(Keep k, string id)
         {
@@ -88,8 +74,9 @@ namespace Keeper.Services
 
         }
 
-        internal  IEnumerable<VaultKeepViewModel> GetKeepsByVaultId(int id)
+        internal  IEnumerable<VaultKeepViewModel> GetKeepsByVaultId(int id, Account userInfo)
         {
+            
     return _kr.GetKeepsByVaultId(id);     
 }
     }
