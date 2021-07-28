@@ -42,12 +42,22 @@ namespace Keeper.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Vault> GetOne(int id)
+        public async Task<ActionResult<Vault>> GetOne(int id)
         {
             try
             {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+
                 Vault vault = _vs.GetOne(id);
-                return Ok(vault);
+                if(vault.IsPrivate != true && userInfo ==null)
+                {
+                    return vault;
+                }
+                else if (vault.CreatorId == userInfo.Id)
+                {
+                    return vault;
+                }
+                     throw new System.Exception("invalid id");
             }
             catch (System.Exception e)
             {
@@ -98,8 +108,18 @@ namespace Keeper.Controllers
        try
        {
          Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-            
-           return Ok(_ks.GetKeepsByVaultId(id, userInfo));
+            var vault =   _vs.GetOne(id);
+            var keeps  =_ks.GetKeepsByVaultId(id, userInfo);
+
+
+            if (vault.IsPrivate == false)
+            {
+               return keeps;
+            }
+            else if(userInfo.Id == vault.CreatorId)
+            {
+                
+            }
        }
        catch (System.Exception e)
        {
