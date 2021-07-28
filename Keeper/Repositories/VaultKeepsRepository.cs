@@ -1,4 +1,5 @@
 using System.Data;
+using System.Linq;
 using Dapper;
 using Keeper.Models;
 
@@ -29,5 +30,23 @@ namespace Keeper.Repositories
             string sql = "DELETE FROM vaultkeeps WHERE id = @id LIMIT 1;";
             _db.Execute(sql, new {id});
         }
+    
+    
+
+        public VaultKeep Get(int id)
+        {
+            string sql = @"
+                SELECT
+                 vk.*,
+                a.*
+                FROM vaultkeeps vk
+                JOIN accounts a ON vk.creatorId = a.id
+                WHERE vk.id = @id;";
+                return _db.Query<VaultKeep, Account, VaultKeep>(sql, (vk,a) =>
+                {
+                    vk.CreatorId = a.Id;
+                    return vk;
+                }, new {id}).FirstOrDefault();
+        }
+        }
     }
-}

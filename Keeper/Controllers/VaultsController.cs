@@ -107,23 +107,20 @@ namespace Keeper.Controllers
    {
        try
        {
-         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-            var vault =   _vs.GetOne(id);
-            var keeps  =_ks.GetKeepsByVaultId(id, userInfo);
-
-
-            if (vault.IsPrivate == false)
-            {
-               return keeps;
-            }
-            else if(userInfo.Id == vault.CreatorId)
-            {
-                
-            }
+           Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+           Vault vault =  _vs.GetOne(id);
+           if(vault.IsPrivate == false)
+           {
+               return Ok(_ks.GetKeepsByVaultId(id, userInfo));
+           }
+           else
+           { 
+               //else if(userInfo.Id == vault.CreatorId)
+               return BadRequest();
+           }
        }
        catch (System.Exception e)
        {
-           
           return BadRequest(e.Message);
        }
    }

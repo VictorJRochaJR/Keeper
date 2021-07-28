@@ -16,6 +16,11 @@ namespace Keeper.Services
            return _vkr.Create(newvk);
        }
 
+       public VaultKeep Get(int id)
+       {
+           return _vkr.Get(id);
+       }
+
 
        internal void Delete(int id)
        {
