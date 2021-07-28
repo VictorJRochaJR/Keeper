@@ -1,5 +1,5 @@
 <template>
-  <router-link @click="setActiveVault" :to="{name: 'VaultPage', params:{ id: vault.creatorId}}" :key="vault.creatorId">
+  <router-link @click="setActiveVault" :to="{name: 'VaultPage', params:{ id: vault.id}}" :key="vault.id">
     <div class="card ">
       <div class="row">
         <div class="col text-center">

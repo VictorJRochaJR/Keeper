@@ -113,11 +113,12 @@ namespace Keeper.Controllers
            {
                return Ok(_ks.GetKeepsByVaultId(id, userInfo));
            }
-           else
+           else if (userInfo.Id == vault.CreatorId)
            { 
-               //else if(userInfo.Id == vault.CreatorId)
-               return BadRequest();
+               return Ok(_ks.GetKeepsByVaultId(id, userInfo));
            }
+                          return BadRequest();
+
        }
        catch (System.Exception e)
        {

@@ -9,10 +9,17 @@ class VaultsService {
   }
 
   setVault(vaultId) {
-    debugger
+    console.log(AppState.profileVaults)
+
     const vault = AppState.profileVaults.find(v => v.id === vaultId)
     console.log(vault, 'activevault')
     AppState.activeProfileVault = vault
+  }
+
+  async getKeepsByVaultId(vaultId) {
+    const res = await api.get('api/vaults/' + vaultId + '/keeps')
+    console.log('vaultkeeps', res.data)
+    AppState.vaultKeeps = res.data
   }
 }
 
