@@ -25,7 +25,9 @@ namespace Keeper.Controllers
                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
                 newvk.CreatorId = userInfo.Id;
                 var v = _vks.Create(newvk);
+                
                 return Ok(newvk);
+
             }
             catch (System.Exception e)
             {

@@ -1,3 +1,4 @@
+import { get } from 'jquery'
 import { AppState } from '../AppState'
 import { api } from './AxiosService'
 
@@ -12,6 +13,17 @@ class KeepsService {
     const keep = AppState.allKeeps.find(k => k.id === keepId)
     console.log(keep, 'activekeep')
     AppState.activeKeep = keep
+  }
+
+  async getKeepByProfileId(profileId) {
+    const res = await api.get('api/profiles/' + profileId + '/keeps')
+    console.log('profilekeeps', res.data)
+    AppState.profileKeeps = res.data
+  }
+
+  setActiveProfileKeep(keepId) {
+    const keep = AppState.profileKeeps.find(k => k.id === keepId)
+    AppState.activeProfileKeep = keep
   }
 }
 

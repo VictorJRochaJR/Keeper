@@ -1,17 +1,23 @@
 <template>
-  <div class="card" data-toggle="modal" data-target="#keepModal" @click="activeKeep">
+  <div class="card row" data-toggle="modal" data-target="#keepModal" @click="setactiveKeep">
     <img class="card-img-top img-fluid" id="bg-img" :src="keep.img">
     <!-- :style="{ backgroundImage: `url(${keep.img})`} " -->
     <div class="card-img-overlay text-center">
-      <h4>{{ keep.description }}</h4>
+      <div class="d-flex align-items-end">
+        <h4>{{ keep.description }}</h4>
+        <router-link :to="{name: 'ProfilePage', params:{ id: keep.creatorId}}" data-dismiss="modal" :key="keep.creatorId">
+          <img class="rounded-edges" :src="keep.creator.picture" height="40" width="40" data-dismiss="modal">
+        </router-link>
+      </div>
     </div>
   </div>
   <KeepModal />
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity'
+import { reactive, computed } from '@vue/reactivity'
 import { keepsService } from '../services/KeepsService'
+import { AppState } from '../AppState'
 export default {
   props: {
     keep: { type: Object, required: true }
@@ -22,10 +28,10 @@ export default {
     })
     return {
       state,
-      activeKeep() {
+      setactiveKeep() {
         keepsService.setKeep(props.keep.id)
-      }
-
+      },
+      activeKeep: computed(() => AppState.activePost)
     }
   }
 }
@@ -39,4 +45,7 @@ export default {
 
 }
 
+.rounded-edges{
+  border-radius: 10px;
+}
 </style>
