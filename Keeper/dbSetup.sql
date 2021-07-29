@@ -55,3 +55,7 @@ SELECT k.*,
  FROM keeps k
  JOIN accounts a ON k.creatorId = a.id
  WHERE k.id = @id;
+
+
+ ALTER TABLE vaults
+ ADD COLUMN description VARCHAR(255);

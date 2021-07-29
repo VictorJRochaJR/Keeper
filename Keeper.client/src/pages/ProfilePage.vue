@@ -17,21 +17,43 @@
           </div>
         </div>
       </div>
-      <div class="row mt-3 ml-5">
-        <h1>Vaults</h1>
+      <div class="row mt-3 ml-5 align-items-baseline">
+        <h1>Vaults</h1> <svg data-toggle="modal"
+                             data-target="#createVaultModal"
+                             xmlns="http://www.w3.org/2000/svg"
+                             width="30"
+                             height="30"
+                             fill="currentColor"
+                             class="bi bi-plus-circle-fill ml-2"
+                             viewBox="0 0 16 16"
+        >
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+        </svg>
       </div>
       <div class="row">
         <div class="card-columns">
           <VaultTemplate v-for="v in profileVaults" :key="v.id" :vault="v" />
         </div>
       </div>
-      <div class="row mt-3 ml-5">
-        <h1>Keeps</h1>
+      <div class="row mt-3 ml-5 align-items-baseline">
+        <h1>Keeps</h1><svg data-toggle="modal"
+                           data-target="#createKeepModal"
+                           xmlns="http://www.w3.org/2000/svg"
+                           width="30"
+                           height="30"
+                           fill="currentColor"
+                           class="bi bi-plus-circle-fill ml-2"
+                           viewBox="0 0 16 16"
+        >
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+        </svg>
       </div>
       <div class="card-columns">
         <ActiveKeepTemplate v-for="pk in profileKeeps" :key="pk.id" :profilekeep="pk" />
       </div>
     </div>
+    <CreateVaultModal />
+    <CreateKeepModal />
   </div>
 </template>
 
@@ -52,6 +74,8 @@ export default {
       await vaultsService.getVaultsByProfileId(route.params.id)
     })
     return {
+      account: computed(() => AppState.account),
+
       activeProfile: computed(() => AppState.activeProfile),
       profileVaults: computed(() => AppState.profileVaults),
       profileKeeps: computed(() => AppState.profileKeeps)

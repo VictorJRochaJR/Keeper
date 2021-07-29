@@ -15,6 +15,11 @@ class KeepsService {
     AppState.activeKeep = keep
   }
 
+  async increaseView(keepId) {
+    const res = await api.get('api/keeps/' + keepId + '/increaseviews')
+    console.log(res, 'keep added')
+  }
+
   async getKeepByProfileId(profileId) {
     const res = await api.get('api/profiles/' + profileId + '/keeps')
     console.log('profilekeeps', res.data)
@@ -24,6 +29,16 @@ class KeepsService {
   setActiveProfileKeep(keepId) {
     const keep = AppState.profileKeeps.find(k => k.id === keepId)
     AppState.activeProfileKeep = keep
+  }
+
+  async createKeep(newKeep) {
+    const res = await api.post('api/keeps', newKeep)
+    console.log(res.data)
+  }
+
+  async deleteKeep(id) {
+    const res = await api.delete('api/keeps/' + id)
+    console.log(res.data)
   }
 }
 

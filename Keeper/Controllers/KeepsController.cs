@@ -37,6 +37,23 @@ namespace Keeper.Controllers
         }
 
 
+        [HttpGet("{id}/increaseviews")]
+        public async Task<ActionResult<Keep>> UpdateViews(int id)
+        {
+            try {
+                 Keep newKeep = _ks.IncreaseView(id);
+                return Ok();
+            }
+            catch (System.Exception e)
+        {
+        return BadRequest(e.Message);
+    }
+        }
+
+
+
+
+
         [Authorize]
         [HttpDelete("{id}")]
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="card row" data-toggle="modal" data-target="#activekeepModal">
+  <div class="card row " data-toggle="modal" data-target="#activekeepModal">
     <img class="card-img-top img-fluid" id="bg-img" :src="keep.img">
     <div class="card-img-overlay text-center">
       <div class="d-flex align-items-end">

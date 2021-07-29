@@ -69,12 +69,24 @@
               </div>
               <div class="row">
                 <div class="col-4">
-                  <button type="button" class="btn btn-outline-primary btn-md">
-                    Add To Vault
-                  </button>
+                  <div class="dropdown" v-if="state.vaults != null">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                    >
+                      Dropdown button
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" v-for="v in state.vaults" :key="v.id" :vault="v" href="#">{{ v.name }}</a>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-2">
-                  <svg xmlns="http://www.w3.org/2000/svg"
+                  <svg @click="deleteKeep"
+                       xmlns="http://www.w3.org/2000/svg"
                        width="40"
                        height="40"
                        fill="gray"
@@ -105,11 +117,19 @@
 </template>
 
 <script>
-import { computed } from '@vue/runtime-core'
+import { computed, reactive } from '@vue/runtime-core'
 import { AppState } from '../AppState'
+import { keepsService } from '../services/KeepsService'
 export default {
   setup() {
+    const state = reactive({
+      vaults: computed(() => AppState.dropdownVaults)
+    })
     return {
+      async deleteKeep(id) {
+        await keepsService.deleteKeep(this.activeKeep.id)
+      },
+      state,
       activeKeep: computed(() => AppState.activeKeep)
     }
   },
@@ -120,8 +140,8 @@ export default {
 <style lang="scss" scoped>
   .img-fluid{
 display: block;
-  width: auto;
-  max-height: 100%
+  width: 100%;
+  max-height: auto;
   }
  modal-lg {
   max-width: 900px;

@@ -10,21 +10,29 @@
 </template>
 
 <script>
-import { onMounted, computed } from '@vue/runtime-core'
+import { onMounted, computed, reactive } from '@vue/runtime-core'
 import { keepsService } from '../services/KeepsService'
 import { AppState } from '../AppState'
+import { vaultsService } from '../services/VaultsService'
 
 export default {
   setup() {
+    const state = reactive({
+      account: computed(() => AppState.account)
+    })
     onMounted(async() => {
       try {
         await keepsService.getKeeps()
+        await vaultsService.getVaultsForDropDown(state.account.id)
       } catch (error) {
         Notification.toast(error.message)
       }
     })
     return {
-      keeps: computed(() => AppState.allKeeps)
+      state,
+      keeps: computed(() => AppState.allKeeps),
+
+      vaults: computed(() => AppState.profileVaults)
     }
   }
 }
