@@ -49,6 +49,18 @@ namespace Keeper.Controllers
         return BadRequest(e.Message);
     }
         }
+        [HttpGet("{id}/increasekeeps")]
+        public async Task<ActionResult<Keep>> UpdateKeeps(int id)
+        {
+            try {
+                 Keep newKeep = _ks.IncreaseKeep(id);
+                return Ok();
+            }
+            catch (System.Exception e)
+        {
+        return BadRequest(e.Message);
+    }
+        }
 
 
 

@@ -40,6 +40,22 @@ class KeepsService {
     const res = await api.delete('api/keeps/' + id)
     console.log(res.data)
   }
+
+  async deleteVaultKeep(id) {
+    const res = await api.delete('api/vaultkeeps/' + id)
+    console.log(res.data)
+  }
+
+  setActiveVaultKeep(keepId) {
+    const keep = AppState.vaultKeeps.find(k => k.id === keepId)
+    console.log(keep, 'activevaultkeep')
+    AppState.activeVaultKeep = keep
+  }
+
+  async increaseKeep(keepId) {
+    const res = await api.get('api/keeps/' + keepId + '/increasekeeps')
+    console.log(res, 'keep added')
+  }
 }
 
 export const keepsService = new KeepsService()

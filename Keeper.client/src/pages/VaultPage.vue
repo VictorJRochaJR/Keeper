@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="col-2">
-      <svg @click="deleteVault"
+      <svg v-if="account.id == activeVault.creatorId"
+           @click="deleteVault"
            xmlns="http://www.w3.org/2000/svg"
            width="40"
            height="40"
@@ -14,25 +15,30 @@
       </svg>
     </div>
     {{ vaultKeeps.length }}
-    <ActiveVaultKeepTemplate v-for="k in vaultKeeps" :key="k.id" :keep="k" />
+    <div class="card-columns">
+      <ActiveVaultKeepTemplate v-for="k in vaultKeeps" :key="k.id" :keep="k" />
+    </div>
   </div>
 </template>
 
 <script>
 import { computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { AppState } from '../AppState'
 import { vaultsService } from '../services/VaultsService'
 export default {
 
   setup() {
     const route = useRoute()
+    const router = useRouter()
     onMounted(async() => {
+    // get vault by id
       await vaultsService.getKeepsByVaultId(route.params.id)
     })
     return {
       activeVault: computed(() => AppState.activeProfileVault),
       vaultKeeps: computed(() => AppState.vaultKeeps),
+      account: computed(() => AppState.account),
       async deleteVault() {
         await vaultsService.deleteVault(this.activeVault.id)
       }

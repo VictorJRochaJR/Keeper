@@ -5,7 +5,7 @@
     <div class="card-img-overlay text-center">
       <div class="d-flex align-items-end" data-dismiss="modal">
         <h4>{{ keep.description }}</h4>
-        <router-link :to="{name: 'ProfilePage', params:{ id: keep.creatorId}}" data-dismiss="modal" :key="keep.creatorId">
+        <router-link @click.stop :to="{name: 'ProfilePage', params:{ id: keep.creatorId}}" data-dismiss="modal" :key="keep.creatorId">
           <img class="rounded-edges" :src="keep.creator.picture" height="40" width="40" data-dismiss="modal">
         </router-link>
       </div>

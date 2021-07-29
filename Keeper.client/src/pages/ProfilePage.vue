@@ -18,7 +18,8 @@
         </div>
       </div>
       <div class="row mt-3 ml-5 align-items-baseline">
-        <h1>Vaults</h1> <svg data-toggle="modal"
+        <h1>Vaults</h1> <svg v-if="state.account.id == activeProfile.id"
+                             data-toggle="modal"
                              data-target="#createVaultModal"
                              xmlns="http://www.w3.org/2000/svg"
                              width="30"
@@ -36,7 +37,8 @@
         </div>
       </div>
       <div class="row mt-3 ml-5 align-items-baseline">
-        <h1>Keeps</h1><svg data-toggle="modal"
+        <h1>Keeps</h1><svg v-if="state.account.id == activeProfile.id"
+                           data-toggle="modal"
                            data-target="#createKeepModal"
                            xmlns="http://www.w3.org/2000/svg"
                            width="30"
@@ -61,11 +63,20 @@
 import { keepsService } from '../services/KeepsService'
 import { profilesService } from '../services/ProfilesService'
 import { vaultsService } from '../services/VaultsService'
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, watch, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { AppState } from '../AppState'
 export default {
   setup() {
+    const state = reactive({
+      account: computed(() => AppState.account)
+
+    })
+    watch(
+      () => state.account, async() => {
+        await vaultsService.getVaultsByProfileId(route.params.id)
+      }
+    )
     const route = useRoute()
     onMounted(async() => {
       console.log(route.params.id)
@@ -74,7 +85,7 @@ export default {
       await vaultsService.getVaultsByProfileId(route.params.id)
     })
     return {
-      account: computed(() => AppState.account),
+      state,
 
       activeProfile: computed(() => AppState.activeProfile),
       profileVaults: computed(() => AppState.profileVaults),

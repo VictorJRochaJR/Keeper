@@ -25,6 +25,8 @@ export default {
     return {
       state,
       setProfileKeep() {
+        keepsService.increaseView(props.profilekeep.id)
+
         keepsService.setActiveProfileKeep(props.profilekeep.id)
       }
     }

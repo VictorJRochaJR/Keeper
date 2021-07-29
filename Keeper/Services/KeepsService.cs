@@ -97,6 +97,24 @@ namespace Keeper.Services
 
 
         }
+        public Keep IncreaseKeep(int id)
+        {
+            Keep keep = _kr.GetOne(id);
+            if (keep == null)
+            {
+                throw new Exception("Invalid Id");
+            }
+
+            //keep.Name = k.Name ?? keep.Name;
+            //keep.Description = k.Description ?? keep.Description;
+            //keep.Img = k.Img ?? keep.Img;
+            keep.Keeps++;
+            //keep.Shares = k.Shares;
+
+            return _kr.Update(keep);
+
+
+        }
         
     }
 

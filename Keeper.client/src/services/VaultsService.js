@@ -1,4 +1,5 @@
 import { AppState } from '../AppState'
+import { router } from '../router'
 import { api } from './AxiosService'
 
 class VaultsService {
@@ -23,9 +24,13 @@ class VaultsService {
   }
 
   async getKeepsByVaultId(vaultId) {
-    const res = await api.get('api/vaults/' + vaultId + '/keeps')
-    console.log('vaultkeeps', res.data)
-    AppState.vaultKeeps = res.data
+    try {
+      const res = await api.get('api/vaults/' + vaultId + '/keeps')
+      console.log('vaultkeeps', res.data)
+      AppState.vaultKeeps = res.data
+    } catch (error) {
+      router.push(({ path: '/' }))
+    }
   }
 
   async createVault(newVault) {

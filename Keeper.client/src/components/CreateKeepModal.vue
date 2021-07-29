@@ -21,11 +21,11 @@
           <form @submit="createKeep" class="">
             <div class="form-group">
               <label for="exampleDropdownFormEmail2" class="sr-only">Nick Name</label>
-              <input type="text" class="form-control" v-model="state.keep.name" placeholder="Keep Name">
+              <input type="text" class="form-control" v-model="state.keep.name" placeholder="Keep Name" required>
               <label for="exampleDropdownFormEmail2" class="sr-only">Nick Name</label>
-              <input type="text" class="form-control" v-model="state.keep.description" placeholder="Keep Description">
+              <input type="text" class="form-control" v-model="state.keep.description" placeholder="Keep Description" required>
               <label for="exampleDropdownFormEmail2" class="sr-only">Nick Name</label>
-              <input type="text" class="form-control" v-model="state.keep.img" placeholder="Keep Image">
+              <input type="text" class="form-control" v-model="state.keep.img" placeholder="Keep Image" required>
             </div>
             <button type="submit" class="btn btn-secondary">
               Create Keep

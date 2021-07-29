@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS keeps(
   name VARCHAR(255) NOT NULL comment 'Keep Name',
   description VARCHAR(255) NOT NULL comment 'Keep Description',
   img VARCHAR(255) NOT NULL comment 'img url',
+  keeps int NOT NULL DEFAULT 0 comment 'keeps',
   views int NOT NULL default 0 comment 'keep views',
   shares int NOT NULL default 0 comment 'keep shares',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
@@ -57,5 +58,5 @@ SELECT k.*,
  WHERE k.id = @id;
 
 
- ALTER TABLE vaults
- ADD COLUMN description VARCHAR(255);
+ Alter TABLE vaults
+ADD description varchar(255);

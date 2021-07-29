@@ -67,9 +67,9 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row mt-2">
                 <div class="col-4">
-                  <div class="dropdown" v-if="state.vaults != null">
+                  <div class="dropdown" v-if="state.vaults != null && account.name">
                     <button class="btn btn-secondary btn-sm dropdown-toggle"
                             type="button"
                             id="dropdownMenuButton"
@@ -77,7 +77,7 @@
                             aria-haspopup="true"
                             aria-expanded="false"
                     >
-                      Dropdown button
+                      Add To Vault
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item"
@@ -91,7 +91,8 @@
                   </div>
                 </div>
                 <div class="col-2">
-                  <svg @click="deleteKeep"
+                  <svg v-if="account.id == activeKeep.creatorId"
+                       @click="deleteKeep"
                        xmlns="http://www.w3.org/2000/svg"
                        width="40"
                        height="40"
@@ -139,8 +140,10 @@ export default {
       async createVaultKeep(vaultId) {
         const keepId = this.activeKeep.id
         await vaultsService.createVaultKeep(vaultId, keepId)
+        keepsService.increaseKeep(this.activeKeep.id)
       },
       state,
+      account: computed(() => AppState.account),
       activeKeep: computed(() => AppState.activeKeep)
     }
   },

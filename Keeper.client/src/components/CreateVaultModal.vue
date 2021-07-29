@@ -21,7 +21,7 @@
           <form @submit="createVault" class="">
             <div class="form-group">
               <label for="exampleDropdownFormEmail2" class="sr-only">Nick Name</label>
-              <input type="text" class="form-control" v-model="state.vault.name" placeholder="Vault Name">
+              <input type="text" class="form-control" v-model="state.vault.name" placeholder="Vault Name" required>
             </div>
             <div class="form-check">
               <input class="form-check-input" v-model="state.vault.isPrivate" type="checkbox" value="" id="flexCheckDefault">

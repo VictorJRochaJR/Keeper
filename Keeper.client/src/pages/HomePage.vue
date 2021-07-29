@@ -23,7 +23,7 @@ export default {
     onMounted(async() => {
       try {
         await keepsService.getKeeps()
-        await vaultsService.getVaultsForDropDown(state.account.id)
+        // await vaultsService.getVaultsForDropDown(state.account.id)
       } catch (error) {
         Notification.toast(error.message)
       }
