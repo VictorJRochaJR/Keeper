@@ -37,6 +37,14 @@ class VaultsService {
     const res = await api.delete('api/vaults/' + id)
     console.log(res.data)
   }
+
+  async createVaultKeep(vaultId, keepId) {
+    const newVaultKeep = {}
+    newVaultKeep.vaultId = vaultId
+    newVaultKeep.keepId = keepId
+    const res = await api.post('api/vaultkeeps', newVaultKeep)
+    console.log(res.data)
+  }
 }
 
 export const vaultsService = new VaultsService()

@@ -80,7 +80,13 @@
                       Dropdown button
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" v-for="v in state.vaults" :key="v.id" :vault="v" href="#">{{ v.name }}</a>
+                      <a class="dropdown-item"
+                         @click="createVaultKeep(v.id)"
+                         v-for="v in state.vaults"
+                         :key="v.id"
+                         :vault="v"
+                         href="#"
+                      >{{ v.name }}</a>
                     </div>
                   </div>
                 </div>
@@ -120,6 +126,7 @@
 import { computed, reactive } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
+import { vaultsService } from '../services/VaultsService'
 export default {
   setup() {
     const state = reactive({
@@ -128,6 +135,10 @@ export default {
     return {
       async deleteKeep(id) {
         await keepsService.deleteKeep(this.activeKeep.id)
+      },
+      async createVaultKeep(vaultId) {
+        const keepId = this.activeKeep.id
+        await vaultsService.createVaultKeep(vaultId, keepId)
       },
       state,
       activeKeep: computed(() => AppState.activeKeep)
