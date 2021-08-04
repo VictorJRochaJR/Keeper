@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Keeper.Controllers
 {
     [ApiController]
-    [Route("[controller]")]   
+    [Route("[controller]")]    
     public class AccountController : ControllerBase
     {
         private readonly AccountService _accountService;
