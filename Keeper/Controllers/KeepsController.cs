@@ -128,7 +128,7 @@ namespace Keeper.Controllers
 
             }
             catch (System.Exception e)
-            {
+            { 
                 
                 return BadRequest(e.Message);
             }
